@@ -782,8 +782,29 @@
      <height>22</height>
     </rect>
    </property>
+   <widget class="QMenu" name="menu">
+    <property name="title">
+     <string>О программе</string>
+    </property>
+    <addaction name="actionPanTilt"/>
+    <addaction name="action_help"/>
+   </widget>
+   <addaction name="menu"/>
   </widget>
   <widget class="QStatusBar" name="statusbar"/>
+  <action name="actionPanTilt">
+   <property name="text">
+    <string>PanTilt</string>
+   </property>
+  </action>
+  <action name="action_help">
+   <property name="text">
+    <string>Справка</string>
+   </property>
+   <property name="shortcut">
+    <string>Alt+H</string>
+   </property>
+  </action>
  </widget>
  <resources/>
  <connections/>

@@ -4,17 +4,23 @@
 #include <QStyleFactory>
 #include <BaseTools/IniFileLoader.h>
 
+
+
+
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
     , ui(new Ui::MainWindow)
 {
     m_movingController = nullptr;
+    QWidget *wdgt = new QWidget;//TODO Move pointer to header
+    //wdgt.setMinimumSize(QSize(600,600));
 
     setupProject();
     //    qDebug()<<"Project setup end";
     initObjects();
     //    qDebug()<<"Objects were initted";
     setupGui();
+    connect(ui->action_help,SIGNAL(triggered()),wdgt,SLOT(show()));
 }
 
 MainWindow::~MainWindow()
