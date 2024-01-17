@@ -1,0 +1,121 @@
+[Version]
+Signature="$CHICAGO$"
+Class=USB
+provider=%Ormins%
+LayoutFile=layout.inf
+
+[Manufacturer]
+%Ormins%=Ormins
+
+[Ormins]
+;
+;
+%USB\VID_0547&PID_0080.DeviceDesc%=EZUSB.Dev, USB\VID_0547&PID_0080
+%USB\VID_04B4&PID_0081.DeviceDesc%=EZUSB.Dev, USB\VID_04B4&PID_0081
+
+;
+%USB\VID_0547&PID_1002.DeviceDesc%=EZUSB.Dev, USB\VID_0547&PID_1002
+
+
+;
+%USB\VID_0547&PID_2131.DeviceDesc%=SLLOADER.Dev, USB\VID_0547&PID_2131
+
+%USB\VID_04B4&PID_8613.DeviceDesc%=EZUSB.Dev, USB\VID_04B4&PID_8613
+%USB\VID_04B4&PID_1002.DeviceDesc%=EZUSB.Dev, USB\VID_04B4&PID_1002
+
+%USB\VID_0547&PID_1003.DeviceDesc%=EZUSB.Dev, USB\VID_0547&PID_1003
+%USB\VID_0547&PID_1004.DeviceDesc%=EZUSB.Dev, USB\VID_0547&PID_1004
+%USB\VID_0547&PID_1005.DeviceDesc%=EZUSB.Dev, USB\VID_0547&PID_1005
+
+[PreCopySection]
+HKR,,NoSetupUI,,1
+
+[DestinationDirs]
+EZUSB.Files.Ext = 10,System32\Drivers
+EZUSB.Files.Inf = 10,INF
+
+SLLOADER.Files.Ext = 10,System32\Drivers
+SLLOADER.Files.Inf = 10,INF
+
+
+[EZUSB.Dev]
+CopyFiles=EZUSB.Files.Ext, EZUSB.Files.Inf
+AddReg=EZUSB.AddReg
+
+[EZUSB.Dev.NT]
+; copyfiles commented out for Win2K to avoid user intervention during install
+CopyFiles=EZUSB.Files.Ext, EZUSB.Files.Inf
+AddReg=EZUSB.AddReg
+
+[EZUSB.Dev.NT.Services]
+Addservice = EZUSB, 0x00000002, EZUSB.AddService
+
+[EZUSB.AddService]
+DisplayName    = %EZUSB.SvcDesc%
+ServiceType    = 1                  ; SERVICE_KERNEL_DRIVER
+StartType      = 2                  ; SERVICE_AUTO_START
+ErrorControl   = 1                  ; SERVICE_ERROR_NORMAL
+ServiceBinary  = %10%\System32\Drivers\usb2ph.sys
+LoadOrderGroup = Base
+
+[EZUSB.AddReg]
+HKR,,DevLoader,,*ntkern
+HKR,,NTMPDriver,,usb2ph.sys
+
+[EZUSB.Files.Ext]
+usb2ph.sys
+
+[EZUSB.Files.Inf]
+ezusbw2k.Inf
+
+
+
+[SLLOADER.Dev]
+CopyFiles=SLLOADER.Files.Ext, SLLOADER.Files.Inf
+AddReg=SLLOADER.AddReg
+
+[SLLOADER.Dev.NT]
+; copyfiles commented out for Win2K to avoid user intervention during install
+CopyFiles=SLLOADER.Files.Ext, SLLOADER.Files.Inf
+AddReg=SLLOADER.AddReg
+
+[SLLOADER.Dev.NT.Services]
+Addservice = SLLOADER, 0x00000002, SLLOADER.AddService
+
+[SLLOADER.AddService]
+DisplayName    = %SLLOADER.SvcDesc%
+ServiceType    = 1                  ; SERVICE_KERNEL_DRIVER
+StartType      = 2                  ; SERVICE_AUTO_START
+ErrorControl   = 1                  ; SERVICE_ERROR_NORMAL
+ServiceBinary  = %10%\System32\Drivers\SLLOADER.sys
+LoadOrderGroup = Base
+
+[SLLOADER.AddReg]
+HKR,,DevLoader,,*ntkern
+HKR,,NTMPDriver,,SLLOADER.sys
+
+[SLLOADER.Files.Ext]
+SLLOADER.sys
+
+[SLLOADER.Files.Inf]
+ezusbw2k.Inf
+
+;---------------------------------------------------------------;
+
+[Strings]
+Ormins="Ormins"
+USB\VID_0547&PID_0080.DeviceDesc="EZ-USB Development Board"
+USB\VID_04B4&PID_0081.DeviceDesc="EZ-USB FX2 Development Board"
+
+USB\VID_04B4&PID_1002.DeviceDesc="Ormins CCD registration system"
+USB\VID_0547&PID_1002.DeviceDesc="Ormins CCD registration system"
+USB\VID_0547&PID_1003.DeviceDesc="Ormins Stepper Motor Control"
+USB\VID_0547&PID_1004.DeviceDesc="Isovac Control"
+USB\VID_0547&PID_1005.DeviceDesc="Ormins Stepper Motor Control"
+USB\VID_0547&PID_2131.DeviceDesc="Ormins CCD registration system - EEPROM missing"
+
+USB\VID_04B4&PID_8613.DeviceDesc="Ormins CCD registration system - EEPROM missing"
+
+EZUSB.SvcDesc="Ormins General Purpose USB Driver (usb2ph.sys)"
+
+SLLOADER.SvcDesc="Ormins Loader USB Driver (SLLOADER.sys)"

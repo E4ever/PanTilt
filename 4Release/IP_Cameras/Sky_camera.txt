@@ -1,0 +1,4 @@
+192.168.1.39
+
+User: admin
+Password: admin
