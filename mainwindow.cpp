@@ -38,8 +38,10 @@ void MainWindow::initObjects()
     m_comPortManager = new ComPortManager(m_settings->value("DeviceSettings/StmComPort").toString(), 115200);
     m_movingController = new PlatformMovingController(this, m_comPortManager);
     if(!m_comPortManager->connectionState()){
+        ui->labelMessage->setStyleSheet("color: red");
         showMessage("COM-порт не подключен!");
     }else{
+        ui->labelMessage->setStyleSheet("color: black");
         showMessage("COM-порт подключен.");
         //m_statusBarForm->setComPortManager(m_comPortManager);
         //m_statusBarForm->setSpectrometers(m_spectroManager->hss(), m_spectroManager->irSpectrometer(), m_spectroManager->skySpectrometer());
@@ -51,6 +53,10 @@ void MainWindow::initObjects()
     }
     connect(m_movingController, SIGNAL(sendTextMessage(QString)), SLOT(CMD_State_Label(QString)));
     connect(m_movingController, SIGNAL(sendOKMessage(QString)), SLOT(labelMessageOK(QString)));
+    connect(m_movingController, SIGNAL(sendMotionStatusDriver1_Error(QString)), SLOT(motionStatusDriver1_Error(QString)));
+    connect(m_movingController, SIGNAL(sendMotionStatusDriver1_OK(QString)), SLOT(motionStatusDriver1_OK(QString)));
+    connect(m_movingController, SIGNAL(sendMotionStatusDriver2_Error(QString)), SLOT(motionStatusDriver2_Error(QString)));
+    connect(m_movingController, SIGNAL(sendMotionStatusDriver2_OK(QString)), SLOT(motionStatusDriver2_OK(QString)));
     //initExperimentMaker();
 }
 
@@ -165,8 +171,10 @@ void MainWindow::setupGui()
     ui->labelCMDState->setText("Ошибок передачи команд через COM-порт нет.");
     ui->labelCMDState->setWordWrap(true);
 
-    ui->labelMotionStatus->setText("Статус движения.");
-    ui->labelMotionStatus->setWordWrap(true);
+    ui->labelMotionStatusDriver1->setText("Состояние работы 1-го драйвера.");
+    ui->labelMotionStatusDriver1->setWordWrap(true);
+    ui->labelMotionStatusDriver2->setText("Состояние работы 2-го драйвера.");
+    ui->labelMotionStatusDriver2->setWordWrap(true);
 
 //    ui->labelCam->setScaledContents(true);
 //    ui->labelCam->setStyleSheet("color: black;"
@@ -264,9 +272,34 @@ void MainWindow::on_pushButtonErrorDATA_clicked()
         m_movingController->errorDATA();
 }
 
-void MainWindow::on_pushButtonMotionStatus_clicked()
+void MainWindow::on_pushButtonMotionStatusDriver1_clicked()
 {
     if(m_movingController != nullptr)
-        m_movingController->motionStatus();
+        m_movingController->motionStatusDriver1();
 }
 
+void MainWindow::on_pushButtonMotionStatusDriver2_clicked()
+{
+    if(m_movingController != nullptr)
+        m_movingController->motionStatusDriver2();
+}
+
+void MainWindow::motionStatusDriver1_Error(QString text){
+    ui->labelMotionStatusDriver1->setStyleSheet("color: red");
+    ui->labelMotionStatusDriver1->setText(text);
+}
+
+void MainWindow::motionStatusDriver1_OK(QString text){
+    ui->labelMotionStatusDriver1->setStyleSheet("color: black");
+    ui->labelMotionStatusDriver1->setText(text);
+}
+
+void MainWindow::motionStatusDriver2_Error(QString text){
+    ui->labelMotionStatusDriver2->setStyleSheet("color: red");
+    ui->labelMotionStatusDriver2->setText(text);
+}
+
+void MainWindow::motionStatusDriver2_OK(QString text){
+    ui->labelMotionStatusDriver2->setStyleSheet("color: black");
+    ui->labelMotionStatusDriver2->setText(text);
+}

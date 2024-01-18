@@ -125,7 +125,17 @@ private slots:
 
     void on_pushButtonErrorDATA_clicked();
 
-    void on_pushButtonMotionStatus_clicked();
+    void on_pushButtonMotionStatusDriver1_clicked();
+
+    void on_pushButtonMotionStatusDriver2_clicked();
+
+    void motionStatusDriver1_Error(QString text);
+
+    void motionStatusDriver1_OK(QString text);
+
+    void motionStatusDriver2_Error(QString text);
+
+    void motionStatusDriver2_OK(QString text);
 
 signals:
 

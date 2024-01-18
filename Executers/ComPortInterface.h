@@ -31,6 +31,14 @@ signals:
 
     void sendOKMessage(QString text);
 
+    void sendMotionStatusDriver1_Error(QString text);
+
+    void sendMotionStatusDriver1_OK(QString text);
+
+    void sendMotionStatusDriver2_Error(QString text);
+
+    void sendMotionStatusDriver2_OK(QString text);
+
     /**
      * @brief changeTaskProgress    Signal to set value on progress bar
      * @param progressPercent

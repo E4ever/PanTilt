@@ -88,7 +88,9 @@ public:
 
     void errorDATA();
 
-    void motionStatus();
+    void motionStatusDriver1();
+
+    void motionStatusDriver2();
 
 signals:
     /**

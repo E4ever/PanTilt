@@ -224,7 +224,25 @@ void PlatformMovingController::parseComPortData(PacketData comAnswer)
             emit needToDisableControls(false);
             emit sendOKMessage("Ошибок передачи команд через COM-порт нет.");
         } else if(comAnswer.comand == 'd'){
+            if(comAnswer.m_charVal[0] == 0){
 
+            } else if(comAnswer.m_charVal[0] == 1){
+                emit sendMotionStatusDriver1_Error("Нет связи с драйвером! Проверьте питание или подключение кабеля Ethernet.");
+            } else if(comAnswer.m_charVal[0] == 2){
+                emit sendMotionStatusDriver1_Error("Отсутствует подключение шагового двигателя к драйверу! Проверьте подключение.");
+            } else if(comAnswer.m_charVal[0] == 3){
+                emit sendMotionStatusDriver1_OK("Шаговый двигатель в режиме движения.");
+            } else if(comAnswer.m_charVal[0] == 4){
+                emit sendMotionStatusDriver1_OK("Шаговый двигатель в режиме ожидания.");
+            } else if(comAnswer.m_charVal[0] == 5){
+                emit sendMotionStatusDriver2_Error("Нет связи с драйвером! Проверьте питание или подключение кабеля Ethernet.");
+            } else if(comAnswer.m_charVal[0] == 6){
+                emit sendMotionStatusDriver2_Error("Отсутствует подключение шагового двигателя к драйверу! Проверьте подключение.");
+            } else if(comAnswer.m_charVal[0] == 7){
+                emit sendMotionStatusDriver2_OK("Шаговый двигатель в режиме движения.");
+            } else if(comAnswer.m_charVal[0] == 8){
+                emit sendMotionStatusDriver2_OK("Шаговый двигатель в режиме ожидания.");
+            }
 //            emit sendTextMessage("Ошибок передачи команд через COM-порт нет.");
         } else {
             emit sendOKMessage("Ошибок передачи команд через COM-порт нет.");
@@ -272,12 +290,24 @@ void PlatformMovingController::errorDATA()
 //    qDebug()<<"errorDATA";
 }
 
-void PlatformMovingController::motionStatus()
+void PlatformMovingController::motionStatusDriver1()
 {
     PacketData packetToSend;
     preparePacket(packetToSend);
     packetToSend.comand = 'd';
     packetToSend.m_intVal = 1;
+    m_currentMovingState = MB_ERROR;
+    emit needToDisableControls(true);
+    emit writeCommandToComPort(packetToSend);
+    //    qDebug()<<"errorDATA";
+}
+
+void PlatformMovingController::motionStatusDriver2()
+{
+    PacketData packetToSend;
+    preparePacket(packetToSend);
+    packetToSend.comand = 'd';
+    packetToSend.m_intVal = 2;
     m_currentMovingState = MB_ERROR;
     emit needToDisableControls(true);
     emit writeCommandToComPort(packetToSend);
