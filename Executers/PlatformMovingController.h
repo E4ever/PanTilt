@@ -92,6 +92,10 @@ public:
 
     void motionStatusDriver2();
 
+    void currentAlarmDriver1();
+
+    void currentAlarmDriver2();
+
 signals:
     /**
      * @brief needToDisableControls Signal that it is needed (not needed) to set controls disabled

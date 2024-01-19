@@ -137,6 +137,18 @@ private slots:
 
     void motionStatusDriver2_OK(QString text);
 
+    void on_pushButtonCurrentAlarmDriver1_clicked();
+
+    void on_pushButtonCurrentAlarmDriver2_clicked();
+
+    void currentAlarmDriver1_Error(QString text);
+
+    void currentAlarmDriver1_OK(QString text);
+
+    void currentAlarmDriver2_Error(QString text);
+
+    void currentAlarmDriver2_OK(QString text);
+
 signals:
 
     /**

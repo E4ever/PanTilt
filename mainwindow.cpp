@@ -53,10 +53,16 @@ void MainWindow::initObjects()
     }
     connect(m_movingController, SIGNAL(sendTextMessage(QString)), SLOT(CMD_State_Label(QString)));
     connect(m_movingController, SIGNAL(sendOKMessage(QString)), SLOT(labelMessageOK(QString)));
+
     connect(m_movingController, SIGNAL(sendMotionStatusDriver1_Error(QString)), SLOT(motionStatusDriver1_Error(QString)));
     connect(m_movingController, SIGNAL(sendMotionStatusDriver1_OK(QString)), SLOT(motionStatusDriver1_OK(QString)));
     connect(m_movingController, SIGNAL(sendMotionStatusDriver2_Error(QString)), SLOT(motionStatusDriver2_Error(QString)));
     connect(m_movingController, SIGNAL(sendMotionStatusDriver2_OK(QString)), SLOT(motionStatusDriver2_OK(QString)));
+
+    connect(m_movingController, SIGNAL(sendCurrentAlarmDriver1_Error(QString)), SLOT(currentAlarmDriver1_Error(QString)));
+    connect(m_movingController, SIGNAL(sendCurrentAlarmDriver1_OK(QString)), SLOT(currentAlarmDriver1_OK(QString)));
+    connect(m_movingController, SIGNAL(sendCurrentAlarmDriver2_Error(QString)), SLOT(currentAlarmDriver2_Error(QString)));
+    connect(m_movingController, SIGNAL(sendCurrentAlarmDriver2_OK(QString)), SLOT(currentAlarmDriver2_OK(QString)));
     //initExperimentMaker();
 }
 
@@ -175,6 +181,11 @@ void MainWindow::setupGui()
     ui->labelMotionStatusDriver1->setWordWrap(true);
     ui->labelMotionStatusDriver2->setText("Состояние работы 2-го драйвера.");
     ui->labelMotionStatusDriver2->setWordWrap(true);
+
+    ui->labelCurrentAlarmDriver1->setText("Текущая ошибка 1-го драйвера.");
+    ui->labelCurrentAlarmDriver1->setWordWrap(true);
+    ui->labelCurrentAlarmDriver2->setText("Текущая ошибка 2-го драйвера.");
+    ui->labelCurrentAlarmDriver2->setWordWrap(true);
 
 //    ui->labelCam->setScaledContents(true);
 //    ui->labelCam->setStyleSheet("color: black;"
@@ -302,4 +313,36 @@ void MainWindow::motionStatusDriver2_Error(QString text){
 void MainWindow::motionStatusDriver2_OK(QString text){
     ui->labelMotionStatusDriver2->setStyleSheet("color: black");
     ui->labelMotionStatusDriver2->setText(text);
+}
+
+void MainWindow::on_pushButtonCurrentAlarmDriver1_clicked()
+{
+    if(m_movingController != nullptr)
+        m_movingController->currentAlarmDriver1();
+}
+
+void MainWindow::on_pushButtonCurrentAlarmDriver2_clicked()
+{
+    if(m_movingController != nullptr)
+        m_movingController->currentAlarmDriver2();
+}
+
+void MainWindow::currentAlarmDriver1_Error(QString text){
+    ui->labelCurrentAlarmDriver1->setStyleSheet("color: red");
+    ui->labelCurrentAlarmDriver1->setText(text);
+}
+
+void MainWindow::currentAlarmDriver1_OK(QString text){
+    ui->labelCurrentAlarmDriver1->setStyleSheet("color: black");
+    ui->labelCurrentAlarmDriver1->setText(text);
+}
+
+void MainWindow::currentAlarmDriver2_Error(QString text){
+    ui->labelCurrentAlarmDriver2->setStyleSheet("color: red");
+    ui->labelCurrentAlarmDriver2->setText(text);
+}
+
+void MainWindow::currentAlarmDriver2_OK(QString text){
+    ui->labelCurrentAlarmDriver2->setStyleSheet("color: black");
+    ui->labelCurrentAlarmDriver2->setText(text);
 }

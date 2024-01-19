@@ -39,6 +39,14 @@ signals:
 
     void sendMotionStatusDriver2_OK(QString text);
 
+    void sendCurrentAlarmDriver1_Error(QString text);
+
+    void sendCurrentAlarmDriver1_OK(QString text);
+
+    void sendCurrentAlarmDriver2_Error(QString text);
+
+    void sendCurrentAlarmDriver2_OK(QString text);
+
     /**
      * @brief changeTaskProgress    Signal to set value on progress bar
      * @param progressPercent
