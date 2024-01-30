@@ -149,6 +149,30 @@ private slots:
 
     void currentAlarmDriver2_OK(QString text);
 
+    void on_pushButtonSaveParamToEEPROM_Dr1_clicked();
+
+    void on_pushButtonSaveParamToEEPROM_Dr2_clicked();
+
+    void on_pushButtonResetParam_Dr1_clicked();
+
+    void on_pushButtonResetParam_Dr2_clicked();
+
+    void on_pushButtonResetAllParam_Dr1_clicked();
+
+    void on_pushButtonResetAllParam_Dr2_clicked();
+
+    void on_pushButtonReadSaveStatus_Dr1_clicked();
+
+    void on_pushButtonReadSaveStatus_Dr2_clicked();
+
+    void readSaveStatusDriver1_OK(QString text);
+
+    void readSaveStatusDriver1_Error(QString text);
+
+    void readSaveStatusDriver2_OK(QString text);
+
+    void readSaveStatusDriver2_Error(QString text);
+
 signals:
 
     /**

@@ -47,6 +47,14 @@ signals:
 
     void sendCurrentAlarmDriver2_OK(QString text);
 
+    void saveStatusToEEPROM_Driver1_OK(QString text);
+
+    void saveStatusToEEPROM_Driver1_Error(QString text);
+
+    void saveStatusToEEPROM_Driver2_OK(QString text);
+
+    void saveStatusToEEPROM_Driver2_Error(QString text);
+
     /**
      * @brief changeTaskProgress    Signal to set value on progress bar
      * @param progressPercent

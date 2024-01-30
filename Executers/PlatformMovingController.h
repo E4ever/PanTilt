@@ -96,6 +96,22 @@ public:
 
     void currentAlarmDriver2();
 
+    void saveToEEPROM_Driver1();
+
+    void saveToEEPROM_Driver2();
+
+    void resetParam_Driver1();
+
+    void resetParam_Driver2();
+
+    void resetAllParam_Driver1();
+
+    void resetAllParam_Driver2();
+
+    void readSaveStatus_Driver1();
+
+    void readSaveStatus_Driver2();
+
 signals:
     /**
      * @brief needToDisableControls Signal that it is needed (not needed) to set controls disabled
@@ -127,7 +143,8 @@ private:
     enum MovementParameters{
         NO_PARAMETER, MOVING_CCW, MOVING_CW, STOP_PAN, MOVING_DOWN,
         MOVING_UP, STOP_TILT, SETTING_PAN_SPEED, SETTING_TILT_SPEED,
-        SETTING_NUMBER_OF_ITR_PAN, SETTING_NUMBER_OF_ITR_TILT, MB_ERROR
+        SETTING_NUMBER_OF_ITR_PAN, SETTING_NUMBER_OF_ITR_TILT, MB_ERROR,
+        SAVE_TO_EEPROM, RESET_PARAM, RESET_ALL_PARAM, READ_SAVE_STATUS
     };
     MovementParameters m_currentMovingState;    //!< Current task for controller
     int m_zenSpeed;     //!< The speed on zenith angle

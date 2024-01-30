@@ -279,6 +279,24 @@ void PlatformMovingController::parseComPortData(PacketData comAnswer)
             } else if(comAnswer.m_charVal[0] == 7){
                 emit sendCurrentAlarmDriver1_Error("Ошибка отправки пакета драйверу! Проверьте питание драйвера или подключение кабеля Ethernet.");
             }
+        } else if(comAnswer.comand == 'r'){
+            if(comAnswer.m_charVal[0] == 1){
+                emit saveStatusToEEPROM_Driver1_OK("Сохранение прошло успешно.");
+            } else if(comAnswer.m_charVal[0] == 2){
+                emit saveStatusToEEPROM_Driver1_Error("Ошибка сохранения!");
+            } else if(comAnswer.m_charVal[0] == 3){
+                emit saveStatusToEEPROM_Driver1_OK("Сохранения не проводилось.");
+            } else if(comAnswer.m_charVal[0] == 4){
+                emit saveStatusToEEPROM_Driver1_Error("Ошибка связи с драйвером! (проверьте питание драйвера или подключение кабеля Ethernet)");
+            } else if(comAnswer.m_charVal[0] == 5){
+                emit saveStatusToEEPROM_Driver2_OK("Сохранение прошло успешно.");
+            } else if(comAnswer.m_charVal[0] == 6){
+                emit saveStatusToEEPROM_Driver2_Error("Ошибка сохранения!");
+            } else if(comAnswer.m_charVal[0] == 7){
+                emit saveStatusToEEPROM_Driver2_OK("Сохранения не проводилось.");
+            } else if(comAnswer.m_charVal[0] == 8){
+                emit saveStatusToEEPROM_Driver2_Error("Ошибка связи с драйвером! (проверьте питание драйвера или подключение кабеля Ethernet)");
+            }
         } else {
             emit sendOKMessage("Ошибок передачи команд через COM-порт нет.");
         }
@@ -288,7 +306,7 @@ void PlatformMovingController::parseComPortData(PacketData comAnswer)
 QString PlatformMovingController::getErrorMessage(unsigned char errorType)
 {
     QString errorText("Ошибка передачи команды через COM-порт: ");
-    if(errorType == 'e'){
+    if(errorType == 'c'){
         errorText.append("неверная контрольная сумма!");
     }else if(errorType == 't'){
         errorText.append("некорректный тип команды!");
@@ -368,6 +386,102 @@ void PlatformMovingController::currentAlarmDriver2()
     packetToSend.comand = 'c';
     packetToSend.m_intVal = 0;
     m_currentMovingState = MB_ERROR;
+    emit needToDisableControls(true);
+    emit writeCommandToComPort(packetToSend);
+    //    qDebug()<<"errorDATA";
+}
+
+void PlatformMovingController::saveToEEPROM_Driver1()
+{
+    PacketData packetToSend;
+    preparePacket(packetToSend);
+    packetToSend.comand = 'f';
+    packetToSend.m_intVal = 3;
+    m_currentMovingState = SAVE_TO_EEPROM;
+    emit needToDisableControls(true);
+    emit writeCommandToComPort(packetToSend);
+    //    qDebug()<<"errorDATA";
+}
+
+void PlatformMovingController::saveToEEPROM_Driver2()
+{
+    PacketData packetToSend;
+    preparePacket(packetToSend);
+    packetToSend.comand = 'f';
+    packetToSend.m_intVal = 9;
+    m_currentMovingState = SAVE_TO_EEPROM;
+    emit needToDisableControls(true);
+    emit writeCommandToComPort(packetToSend);
+    //    qDebug()<<"errorDATA";
+}
+
+void PlatformMovingController::resetParam_Driver1()
+{
+    PacketData packetToSend;
+    preparePacket(packetToSend);
+    packetToSend.comand = 'f';
+    packetToSend.m_intVal = 4;
+    m_currentMovingState = RESET_PARAM;
+    emit needToDisableControls(true);
+    emit writeCommandToComPort(packetToSend);
+    //    qDebug()<<"errorDATA";
+}
+
+void PlatformMovingController::resetParam_Driver2()
+{
+    PacketData packetToSend;
+    preparePacket(packetToSend);
+    packetToSend.comand = 'f';
+    packetToSend.m_intVal = 10;
+    m_currentMovingState = RESET_PARAM;
+    emit needToDisableControls(true);
+    emit writeCommandToComPort(packetToSend);
+    //    qDebug()<<"errorDATA";
+}
+
+void PlatformMovingController::resetAllParam_Driver1()
+{
+    PacketData packetToSend;
+    preparePacket(packetToSend);
+    packetToSend.comand = 'f';
+    packetToSend.m_intVal = 5;
+    m_currentMovingState = RESET_ALL_PARAM;
+    emit needToDisableControls(true);
+    emit writeCommandToComPort(packetToSend);
+    //    qDebug()<<"errorDATA";
+}
+
+void PlatformMovingController::resetAllParam_Driver2()
+{
+    PacketData packetToSend;
+    preparePacket(packetToSend);
+    packetToSend.comand = 'f';
+    packetToSend.m_intVal = 11;
+    m_currentMovingState = RESET_ALL_PARAM;
+    emit needToDisableControls(true);
+    emit writeCommandToComPort(packetToSend);
+    //    qDebug()<<"errorDATA";
+}
+
+void PlatformMovingController::readSaveStatus_Driver1()
+{
+    PacketData packetToSend;
+    preparePacket(packetToSend);
+    packetToSend.comand = 'r';
+    packetToSend.m_intVal = 1;
+    m_currentMovingState = READ_SAVE_STATUS;
+    emit needToDisableControls(true);
+    emit writeCommandToComPort(packetToSend);
+    //    qDebug()<<"errorDATA";
+}
+
+void PlatformMovingController::readSaveStatus_Driver2()
+{
+    PacketData packetToSend;
+    preparePacket(packetToSend);
+    packetToSend.comand = 'r';
+    packetToSend.m_intVal = 2;
+    m_currentMovingState = READ_SAVE_STATUS;
     emit needToDisableControls(true);
     emit writeCommandToComPort(packetToSend);
     //    qDebug()<<"errorDATA";

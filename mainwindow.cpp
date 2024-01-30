@@ -38,10 +38,12 @@ void MainWindow::initObjects()
     m_comPortManager = new ComPortManager(m_settings->value("DeviceSettings/StmComPort").toString(), 115200);
     m_movingController = new PlatformMovingController(this, m_comPortManager);
     if(!m_comPortManager->connectionState()){
-        ui->labelMessage->setStyleSheet("color: red");
+//        ui->labelMessage->setStyleSheet("color: red");
+        ui->statusbar->setStyleSheet("color: red");
         showMessage("COM-порт не подключен!");
     }else{
-        ui->labelMessage->setStyleSheet("color: black");
+//        ui->labelMessage->setStyleSheet("color: black");
+        ui->statusbar->setStyleSheet("color: black");
         showMessage("COM-порт подключен.");
         //m_statusBarForm->setComPortManager(m_comPortManager);
         //m_statusBarForm->setSpectrometers(m_spectroManager->hss(), m_spectroManager->irSpectrometer(), m_spectroManager->skySpectrometer());
@@ -63,6 +65,11 @@ void MainWindow::initObjects()
     connect(m_movingController, SIGNAL(sendCurrentAlarmDriver1_OK(QString)), SLOT(currentAlarmDriver1_OK(QString)));
     connect(m_movingController, SIGNAL(sendCurrentAlarmDriver2_Error(QString)), SLOT(currentAlarmDriver2_Error(QString)));
     connect(m_movingController, SIGNAL(sendCurrentAlarmDriver2_OK(QString)), SLOT(currentAlarmDriver2_OK(QString)));
+
+    connect(m_movingController, SIGNAL(saveStatusToEEPROM_Driver1_OK(QString)), SLOT(readSaveStatusDriver1_OK(QString)));
+    connect(m_movingController, SIGNAL(saveStatusToEEPROM_Driver1_Error(QString)), SLOT(readSaveStatusDriver1_Error(QString)));
+    connect(m_movingController, SIGNAL(saveStatusToEEPROM_Driver2_OK(QString)), SLOT(readSaveStatusDriver2_OK(QString)));
+    connect(m_movingController, SIGNAL(saveStatusToEEPROM_Driver2_Error(QString)), SLOT(readSaveStatusDriver2_Error(QString)));
     //initExperimentMaker();
 }
 
@@ -130,7 +137,8 @@ void MainWindow::on_pushButtonStopTilt_clicked()
 
 void MainWindow::showMessage(QString message)
 {
-    ui->labelMessage->setText(message);
+//    ui->labelMessage->setText(message);
+    ui->statusbar->showMessage(message);
 }
 
 void MainWindow::on_spinBoxTiltSpeed_editingFinished()
@@ -186,6 +194,9 @@ void MainWindow::setupGui()
     ui->labelCurrentAlarmDriver1->setWordWrap(true);
     ui->labelCurrentAlarmDriver2->setText("Текущая ошибка 2-го драйвера.");
     ui->labelCurrentAlarmDriver2->setWordWrap(true);
+
+    ui->labelSaveStatusToEEPROM_Dr1->setWordWrap(true);
+    ui->labelSaveStatusToEEPROM_Dr2->setWordWrap(true);
 
 //    ui->labelCam->setScaledContents(true);
 //    ui->labelCam->setStyleSheet("color: black;"
@@ -345,4 +356,83 @@ void MainWindow::currentAlarmDriver2_Error(QString text){
 void MainWindow::currentAlarmDriver2_OK(QString text){
     ui->labelCurrentAlarmDriver2->setStyleSheet("color: black");
     ui->labelCurrentAlarmDriver2->setText(text);
+}
+
+void MainWindow::on_pushButtonSaveParamToEEPROM_Dr1_clicked()
+{
+    if(m_movingController != nullptr)
+        m_movingController->saveToEEPROM_Driver1();
+}
+
+
+void MainWindow::on_pushButtonSaveParamToEEPROM_Dr2_clicked()
+{
+    if(m_movingController != nullptr)
+        m_movingController->saveToEEPROM_Driver2();
+}
+
+
+void MainWindow::on_pushButtonResetParam_Dr1_clicked()
+{
+    if(m_movingController != nullptr)
+        m_movingController->resetParam_Driver1();
+}
+
+
+void MainWindow::on_pushButtonResetParam_Dr2_clicked()
+{
+    if(m_movingController != nullptr)
+        m_movingController->resetParam_Driver2();
+}
+
+
+void MainWindow::on_pushButtonResetAllParam_Dr1_clicked()
+{
+    if(m_movingController != nullptr)
+        m_movingController->resetAllParam_Driver1();
+}
+
+
+void MainWindow::on_pushButtonResetAllParam_Dr2_clicked()
+{
+    if(m_movingController != nullptr)
+        m_movingController->resetAllParam_Driver2();
+}
+
+
+void MainWindow::on_pushButtonReadSaveStatus_Dr1_clicked()
+{
+    if(m_movingController != nullptr)
+        m_movingController->readSaveStatus_Driver1();
+}
+
+
+void MainWindow::on_pushButtonReadSaveStatus_Dr2_clicked()
+{
+    if(m_movingController != nullptr)
+        m_movingController->readSaveStatus_Driver2();
+}
+
+void MainWindow::readSaveStatusDriver1_OK(QString text)
+{
+    ui->labelSaveStatusToEEPROM_Dr1->setStyleSheet("color: black");
+    ui->labelSaveStatusToEEPROM_Dr1->setText(text);
+}
+
+void MainWindow::readSaveStatusDriver1_Error(QString text)
+{
+    ui->labelSaveStatusToEEPROM_Dr1->setStyleSheet("color: red");
+    ui->labelSaveStatusToEEPROM_Dr1->setText(text);
+}
+
+void MainWindow::readSaveStatusDriver2_OK(QString text)
+{
+    ui->labelSaveStatusToEEPROM_Dr2->setStyleSheet("color: black");
+    ui->labelSaveStatusToEEPROM_Dr2->setText(text);
+}
+
+void MainWindow::readSaveStatusDriver2_Error(QString text)
+{
+    ui->labelSaveStatusToEEPROM_Dr2->setStyleSheet("color: red");
+    ui->labelSaveStatusToEEPROM_Dr2->setText(text);
 }
