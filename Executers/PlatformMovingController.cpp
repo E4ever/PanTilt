@@ -224,79 +224,65 @@ void PlatformMovingController::parseComPortData(PacketData comAnswer)
             emit needToDisableControls(false);
             emit sendOKMessage("Ошибок передачи команд через COM-порт нет.");
         } else if(comAnswer.comand == 'd'){
-            if(comAnswer.m_charVal[0] == 0){
-
-            } else if(comAnswer.m_charVal[0] == 1){
-                emit sendMotionStatusDriver1_Error("Нет связи с драйвером! Проверьте питание или подключение кабеля Ethernet.");
-            } else if(comAnswer.m_charVal[0] == 2){
+            if(comAnswer.m_intVal == 0){
                 emit sendMotionStatusDriver1_Error("Отсутствует подключение шагового двигателя к драйверу! Проверьте подключение.");
-            } else if(comAnswer.m_charVal[0] == 3){
+            } else if(comAnswer.m_intVal == 1){
                 emit sendMotionStatusDriver1_OK("Шаговый двигатель в режиме движения.");
-            } else if(comAnswer.m_charVal[0] == 4){
+            } else if(comAnswer.m_intVal == 2){
                 emit sendMotionStatusDriver1_OK("Шаговый двигатель в режиме ожидания.");
-            } else if(comAnswer.m_charVal[0] == 5){
-                emit sendMotionStatusDriver2_Error("Нет связи с драйвером! Проверьте питание или подключение кабеля Ethernet.");
-            } else if(comAnswer.m_charVal[0] == 6){
+            } else if(comAnswer.m_intVal == 3){
                 emit sendMotionStatusDriver2_Error("Отсутствует подключение шагового двигателя к драйверу! Проверьте подключение.");
-            } else if(comAnswer.m_charVal[0] == 7){
+            } else if(comAnswer.m_intVal == 4){
                 emit sendMotionStatusDriver2_OK("Шаговый двигатель в режиме движения.");
-            } else if(comAnswer.m_charVal[0] == 8){
+            } else if(comAnswer.m_intVal == 5){
                 emit sendMotionStatusDriver2_OK("Шаговый двигатель в режиме ожидания.");
             }
-        } else if(comAnswer.comand == 'c'){
-            if(comAnswer.m_charVal[0] == 0){
-                emit sendCurrentAlarmDriver2_OK("Текущих ошибок нет.");
-            } else if(comAnswer.m_charVal[0] == 1){
-                emit sendCurrentAlarmDriver2_Error("Перегрузка по току! Проверьте подключение двигателя к драйверу или проверьте двигатель на к/з, а затем перезагрузите драйвер.");
-            } else if(comAnswer.m_charVal[0] == 2){
-                emit sendCurrentAlarmDriver2_Error("Перенапряжение! Проверьте напряжение источника питания, а затем перезагрузите драйвер.");
-            } else if(comAnswer.m_charVal[0] == 3){
-                emit sendCurrentAlarmDriver2_Error("Ошибка схемы выборки тока! Перезагрузите драйвер.");
-            } else if(comAnswer.m_charVal[0] == 4){
-                emit sendCurrentAlarmDriver2_Error("Ошибка блокировки вала! Проверьте, не оборван ли провод двигателя.");
-            } else if(comAnswer.m_charVal[0] == 5){
-                emit sendCurrentAlarmDriver2_Error("Ошибка EEPROM! Подключите привод к программному обеспечению Leadshine, чтобы сбросить параметры до заводских.");
-            } else if(comAnswer.m_charVal[0] == 6){
-                emit sendCurrentAlarmDriver2_Error("Ошибка автоматической настройки! Перезагрузите драйвер.");
-            } else if(comAnswer.m_charVal[0] == 7){
-                emit sendCurrentAlarmDriver2_Error("Ошибка отправки пакета драйверу! Проверьте питание драйвера или подключение кабеля Ethernet.");
-            }
         } else if(comAnswer.comand == 'b'){
-            if(comAnswer.m_charVal[0] == 0){
+            if(comAnswer.m_intVal == 0){
                 emit sendCurrentAlarmDriver1_OK("Текущих ошибок нет.");
-            } else if(comAnswer.m_charVal[0] == 1){
+            } else if(comAnswer.m_intVal == 1){
                 emit sendCurrentAlarmDriver1_Error("Перегрузка по току! Проверьте подключение двигателя к драйверу или проверьте двигатель на к/з, а затем перезагрузите драйвер.");
-            } else if(comAnswer.m_charVal[0] == 2){
+            } else if(comAnswer.m_intVal == 2){
                 emit sendCurrentAlarmDriver1_Error("Перенапряжение! Проверьте напряжение источника питания, а затем перезагрузите драйвер.");
-            } else if(comAnswer.m_charVal[0] == 3){
+            } else if(comAnswer.m_intVal == 3){
                 emit sendCurrentAlarmDriver1_Error("Ошибка схемы выборки тока! Перезагрузите драйвер.");
-            } else if(comAnswer.m_charVal[0] == 4){
+            } else if(comAnswer.m_intVal == 4){
                 emit sendCurrentAlarmDriver1_Error("Ошибка блокировки вала! Проверьте, не оборван ли провод двигателя.");
-            } else if(comAnswer.m_charVal[0] == 5){
+            } else if(comAnswer.m_intVal == 5){
                 emit sendCurrentAlarmDriver1_Error("Ошибка EEPROM! Подключите привод к программному обеспечению Leadshine, чтобы сбросить параметры до заводских.");
-            } else if(comAnswer.m_charVal[0] == 6){
+            } else if(comAnswer.m_intVal == 6){
                 emit sendCurrentAlarmDriver1_Error("Ошибка автоматической настройки! Перезагрузите драйвер.");
-            } else if(comAnswer.m_charVal[0] == 7){
-                emit sendCurrentAlarmDriver1_Error("Ошибка отправки пакета драйверу! Проверьте питание драйвера или подключение кабеля Ethernet.");
+            } else if(comAnswer.m_intVal == 7){
+                emit sendCurrentAlarmDriver2_OK("Текущих ошибок нет.");
+            } else if(comAnswer.m_intVal == 8){
+                emit sendCurrentAlarmDriver2_Error("Перегрузка по току! Проверьте подключение двигателя к драйверу или проверьте двигатель на к/з, а затем перезагрузите драйвер.");
+            } else if(comAnswer.m_intVal == 9){
+                emit sendCurrentAlarmDriver2_Error("Перенапряжение! Проверьте напряжение источника питания, а затем перезагрузите драйвер.");
+            } else if(comAnswer.m_intVal == 10){
+                emit sendCurrentAlarmDriver2_Error("Ошибка схемы выборки тока! Перезагрузите драйвер.");
+            } else if(comAnswer.m_intVal == 11){
+                emit sendCurrentAlarmDriver2_Error("Ошибка блокировки вала! Проверьте, не оборван ли провод двигателя.");
+            } else if(comAnswer.m_intVal == 12){
+                emit sendCurrentAlarmDriver2_Error("Ошибка EEPROM! Подключите привод к программному обеспечению Leadshine, чтобы сбросить параметры до заводских.");
+            } else if(comAnswer.m_intVal == 13){
+                emit sendCurrentAlarmDriver2_Error("Ошибка автоматической настройки! Перезагрузите драйвер.");
             }
         } else if(comAnswer.comand == 'r'){
-            if(comAnswer.m_charVal[0] == 1){
+            if(comAnswer.m_intVal == 0){
                 emit saveStatusToEEPROM_Driver1_OK("Сохранение прошло успешно.");
-            } else if(comAnswer.m_charVal[0] == 2){
+            } else if(comAnswer.m_intVal == 1){
                 emit saveStatusToEEPROM_Driver1_Error("Ошибка сохранения!");
-            } else if(comAnswer.m_charVal[0] == 3){
+            } else if(comAnswer.m_intVal == 2){
                 emit saveStatusToEEPROM_Driver1_OK("Сохранения не проводилось.");
-            } else if(comAnswer.m_charVal[0] == 4){
-                emit saveStatusToEEPROM_Driver1_Error("Ошибка связи с драйвером! (проверьте питание драйвера или подключение кабеля Ethernet)");
-            } else if(comAnswer.m_charVal[0] == 5){
+            } else if(comAnswer.m_intVal == 3){
                 emit saveStatusToEEPROM_Driver2_OK("Сохранение прошло успешно.");
-            } else if(comAnswer.m_charVal[0] == 6){
+            } else if(comAnswer.m_intVal == 4){
                 emit saveStatusToEEPROM_Driver2_Error("Ошибка сохранения!");
-            } else if(comAnswer.m_charVal[0] == 7){
+            } else if(comAnswer.m_intVal == 5){
                 emit saveStatusToEEPROM_Driver2_OK("Сохранения не проводилось.");
-            } else if(comAnswer.m_charVal[0] == 8){
-                emit saveStatusToEEPROM_Driver2_Error("Ошибка связи с драйвером! (проверьте питание драйвера или подключение кабеля Ethernet)");
             }
+        } else if(comAnswer.comand == 'i'){
+            emit readDeviceID_signal("Идентификатор устройства: ", comAnswer.m_intVal);
         } else {
             emit sendOKMessage("Ошибок передачи команд через COM-порт нет.");
         }
@@ -348,7 +334,7 @@ void PlatformMovingController::motionStatusDriver1()
     PacketData packetToSend;
     preparePacket(packetToSend);
     packetToSend.comand = 'd';
-    packetToSend.m_intVal = 1;
+    packetToSend.m_intVal = 0;
     m_currentMovingState = MB_ERROR;
     emit needToDisableControls(true);
     emit writeCommandToComPort(packetToSend);
@@ -360,7 +346,7 @@ void PlatformMovingController::motionStatusDriver2()
     PacketData packetToSend;
     preparePacket(packetToSend);
     packetToSend.comand = 'd';
-    packetToSend.m_intVal = 2;
+    packetToSend.m_intVal = 1;
     m_currentMovingState = MB_ERROR;
     emit needToDisableControls(true);
     emit writeCommandToComPort(packetToSend);
@@ -383,8 +369,8 @@ void PlatformMovingController::currentAlarmDriver2()
 {
     PacketData packetToSend;
     preparePacket(packetToSend);
-    packetToSend.comand = 'c';
-    packetToSend.m_intVal = 0;
+    packetToSend.comand = 'b';
+    packetToSend.m_intVal = 1;
     m_currentMovingState = MB_ERROR;
     emit needToDisableControls(true);
     emit writeCommandToComPort(packetToSend);
@@ -396,7 +382,7 @@ void PlatformMovingController::saveToEEPROM_Driver1()
     PacketData packetToSend;
     preparePacket(packetToSend);
     packetToSend.comand = 'f';
-    packetToSend.m_intVal = 3;
+    packetToSend.m_intVal = 2;
     m_currentMovingState = SAVE_TO_EEPROM;
     emit needToDisableControls(true);
     emit writeCommandToComPort(packetToSend);
@@ -408,7 +394,7 @@ void PlatformMovingController::saveToEEPROM_Driver2()
     PacketData packetToSend;
     preparePacket(packetToSend);
     packetToSend.comand = 'f';
-    packetToSend.m_intVal = 9;
+    packetToSend.m_intVal = 8;
     m_currentMovingState = SAVE_TO_EEPROM;
     emit needToDisableControls(true);
     emit writeCommandToComPort(packetToSend);
@@ -420,7 +406,7 @@ void PlatformMovingController::resetParam_Driver1()
     PacketData packetToSend;
     preparePacket(packetToSend);
     packetToSend.comand = 'f';
-    packetToSend.m_intVal = 4;
+    packetToSend.m_intVal = 3;
     m_currentMovingState = RESET_PARAM;
     emit needToDisableControls(true);
     emit writeCommandToComPort(packetToSend);
@@ -432,7 +418,7 @@ void PlatformMovingController::resetParam_Driver2()
     PacketData packetToSend;
     preparePacket(packetToSend);
     packetToSend.comand = 'f';
-    packetToSend.m_intVal = 10;
+    packetToSend.m_intVal = 9;
     m_currentMovingState = RESET_PARAM;
     emit needToDisableControls(true);
     emit writeCommandToComPort(packetToSend);
@@ -444,7 +430,7 @@ void PlatformMovingController::resetAllParam_Driver1()
     PacketData packetToSend;
     preparePacket(packetToSend);
     packetToSend.comand = 'f';
-    packetToSend.m_intVal = 5;
+    packetToSend.m_intVal = 4;
     m_currentMovingState = RESET_ALL_PARAM;
     emit needToDisableControls(true);
     emit writeCommandToComPort(packetToSend);
@@ -456,7 +442,7 @@ void PlatformMovingController::resetAllParam_Driver2()
     PacketData packetToSend;
     preparePacket(packetToSend);
     packetToSend.comand = 'f';
-    packetToSend.m_intVal = 11;
+    packetToSend.m_intVal = 10;
     m_currentMovingState = RESET_ALL_PARAM;
     emit needToDisableControls(true);
     emit writeCommandToComPort(packetToSend);
@@ -468,7 +454,7 @@ void PlatformMovingController::readSaveStatus_Driver1()
     PacketData packetToSend;
     preparePacket(packetToSend);
     packetToSend.comand = 'r';
-    packetToSend.m_intVal = 1;
+    packetToSend.m_intVal = 0;
     m_currentMovingState = READ_SAVE_STATUS;
     emit needToDisableControls(true);
     emit writeCommandToComPort(packetToSend);
@@ -480,8 +466,56 @@ void PlatformMovingController::readSaveStatus_Driver2()
     PacketData packetToSend;
     preparePacket(packetToSend);
     packetToSend.comand = 'r';
-    packetToSend.m_intVal = 2;
+    packetToSend.m_intVal = 1;
     m_currentMovingState = READ_SAVE_STATUS;
+    emit needToDisableControls(true);
+    emit writeCommandToComPort(packetToSend);
+    //    qDebug()<<"errorDATA";
+}
+
+void PlatformMovingController::readDeviceID()
+{
+    PacketData packetToSend;
+    preparePacket(packetToSend);
+    packetToSend.comand = 'i';
+    packetToSend.m_intVal = 0;
+    m_currentMovingState = READ_DEVICE_ID;
+    emit needToDisableControls(true);
+    emit writeCommandToComPort(packetToSend);
+    //    qDebug()<<"errorDATA";
+}
+
+void PlatformMovingController::DC_motor_stop()
+{
+    PacketData packetToSend;
+    preparePacket(packetToSend);
+    packetToSend.comand = 'g';
+    packetToSend.m_intVal = 0;
+    m_currentMovingState = DC_MOTOR_CONTROL;
+    emit needToDisableControls(true);
+    emit writeCommandToComPort(packetToSend);
+    //    qDebug()<<"errorDATA";
+}
+
+void PlatformMovingController::DC_motor_CW()
+{
+    PacketData packetToSend;
+    preparePacket(packetToSend);
+    packetToSend.comand = 'g';
+    packetToSend.m_intVal = 2;
+    m_currentMovingState = DC_MOTOR_CONTROL;
+    emit needToDisableControls(true);
+    emit writeCommandToComPort(packetToSend);
+    //    qDebug()<<"errorDATA";
+}
+
+void PlatformMovingController::DC_motor_CCW()
+{
+    PacketData packetToSend;
+    preparePacket(packetToSend);
+    packetToSend.comand = 'g';
+    packetToSend.m_intVal = 1;
+    m_currentMovingState = DC_MOTOR_CONTROL;
     emit needToDisableControls(true);
     emit writeCommandToComPort(packetToSend);
     //    qDebug()<<"errorDATA";

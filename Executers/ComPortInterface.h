@@ -55,6 +55,8 @@ signals:
 
     void saveStatusToEEPROM_Driver2_Error(QString text);
 
+    void readDeviceID_signal(QString text, unsigned long id);
+
     /**
      * @brief changeTaskProgress    Signal to set value on progress bar
      * @param progressPercent

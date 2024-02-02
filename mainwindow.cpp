@@ -70,6 +70,11 @@ void MainWindow::initObjects()
     connect(m_movingController, SIGNAL(saveStatusToEEPROM_Driver1_Error(QString)), SLOT(readSaveStatusDriver1_Error(QString)));
     connect(m_movingController, SIGNAL(saveStatusToEEPROM_Driver2_OK(QString)), SLOT(readSaveStatusDriver2_OK(QString)));
     connect(m_movingController, SIGNAL(saveStatusToEEPROM_Driver2_Error(QString)), SLOT(readSaveStatusDriver2_Error(QString)));
+
+    connect(m_movingController, SIGNAL(readDeviceID_signal(QString, ulong)), SLOT(readDevice_ID(QString, ulong)));
+
+    m_movingController->readDeviceID();
+
     //initExperimentMaker();
 }
 
@@ -436,3 +441,28 @@ void MainWindow::readSaveStatusDriver2_Error(QString text)
     ui->labelSaveStatusToEEPROM_Dr2->setStyleSheet("color: red");
     ui->labelSaveStatusToEEPROM_Dr2->setText(text);
 }
+
+void MainWindow::readDevice_ID(QString text, unsigned long id){
+    ui->labelDeviceID->setText(text.append(" " + QString::number(id)));
+}
+
+void MainWindow::on_pushButtonDCMotorCCW_clicked()
+{
+    if(m_movingController != nullptr)
+        m_movingController->DC_motor_CCW();
+}
+
+
+void MainWindow::on_pushButtonDCMotorStop_clicked()
+{
+    if(m_movingController != nullptr)
+        m_movingController->DC_motor_stop();
+}
+
+
+void MainWindow::on_pushButtonDCMotorCW_clicked()
+{
+    if(m_movingController != nullptr)
+        m_movingController->DC_motor_CW();
+}
+

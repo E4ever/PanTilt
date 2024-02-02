@@ -173,6 +173,14 @@ private slots:
 
     void readSaveStatusDriver2_Error(QString text);
 
+    void readDevice_ID(QString text, unsigned long id);
+
+    void on_pushButtonDCMotorCCW_clicked();
+
+    void on_pushButtonDCMotorStop_clicked();
+
+    void on_pushButtonDCMotorCW_clicked();
+
 signals:
 
     /**
