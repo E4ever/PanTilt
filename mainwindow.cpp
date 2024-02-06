@@ -15,6 +15,7 @@ MainWindow::MainWindow(QWidget *parent)
     initObjects();
     //    qDebug()<<"Objects were initted";
     setupGui();
+    timer.start(100);
 }
 
 MainWindow::~MainWindow()
@@ -72,6 +73,12 @@ void MainWindow::initObjects()
     connect(m_movingController, SIGNAL(saveStatusToEEPROM_Driver2_Error(QString)), SLOT(readSaveStatusDriver2_Error(QString)));
 
     connect(m_movingController, SIGNAL(readDeviceID_signal(QString, ulong)), SLOT(readDevice_ID(QString, ulong)));
+
+    connect(&timer, SIGNAL(timeout()), SLOT(readEncoderValue_timer()));
+
+    connect(m_movingController, SIGNAL(readEncoderValue_signal(QString, ulong)), SLOT(readEncoderValue(QString, ulong)));
+
+    connect(m_movingController, SIGNAL(sendTextMessage(QString)), SLOT(protocolErrorMessage(QString)));
 
     m_movingController->readDeviceID();
 
@@ -202,6 +209,8 @@ void MainWindow::setupGui()
 
     ui->labelSaveStatusToEEPROM_Dr1->setWordWrap(true);
     ui->labelSaveStatusToEEPROM_Dr2->setWordWrap(true);
+
+    ui->labelEncoder->setText(" -");
 
 //    ui->labelCam->setScaledContents(true);
 //    ui->labelCam->setStyleSheet("color: black;"
@@ -466,3 +475,24 @@ void MainWindow::on_pushButtonDCMotorCW_clicked()
         m_movingController->DC_motor_CW();
 }
 
+
+void MainWindow::on_pushButtonEncoder_clicked()
+{
+    if(m_movingController != nullptr)
+        m_movingController->readEncoderValue();
+}
+
+void MainWindow::readEncoderValue(QString text, unsigned long enc_value){
+    ui->labelEncoder->setText(text.append(" " + QString::number(enc_value)));
+}
+
+void MainWindow::readEncoderValue_timer()
+{
+    if(m_movingController != nullptr)
+        m_movingController->readEncoderValue();
+}
+
+void MainWindow::protocolErrorMessage(QString text){
+    ui->labelCMDState->setStyleSheet("color: red");
+    ui->labelCMDState->setText(text);
+}

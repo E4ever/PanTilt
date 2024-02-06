@@ -217,8 +217,10 @@ void PlatformMovingController::parseComPortData(PacketData comAnswer)
 {
 //    qDebug()<<"parsing data..."<<comAnswer.comand;
     if(m_currentMovingState != NO_PARAMETER){
-        if(comAnswer.comand == 'e'){
-            emit sendTextMessage(getErrorMessage(comAnswer.m_charVal[0]));
+        if(comAnswer.comand == 'e' && comAnswer.m_charVal[0] == 'v'){
+            emit sendTextMessage(getErrorMessage(comAnswer.m_charVal[1]));
+        } else if(comAnswer.comand == 'e' && comAnswer.m_charVal[0] == 'm'){
+            emit sendTextMessage(getErrorMessageModbus(comAnswer.m_charVal[1]));
         } else if(comAnswer.comand == 'a' || comAnswer.comand == 'w'){
             m_currentMovingState = NO_PARAMETER;
             emit needToDisableControls(false);
@@ -283,6 +285,8 @@ void PlatformMovingController::parseComPortData(PacketData comAnswer)
             }
         } else if(comAnswer.comand == 'i'){
             emit readDeviceID_signal("Идентификатор устройства: ", comAnswer.m_intVal);
+        } else if(comAnswer.comand == 'q'){
+            emit readEncoderValue_signal("Значение энкодера: ", comAnswer.m_intVal);
         } else {
             emit sendOKMessage("Ошибок передачи команд через COM-порт нет.");
         }
@@ -296,6 +300,22 @@ QString PlatformMovingController::getErrorMessage(unsigned char errorType)
         errorText.append("неверная контрольная сумма!");
     }else if(errorType == 't'){
         errorText.append("некорректный тип команды!");
+    }else if(errorType == 'd'){
+        errorText.append("некорректное значение в блоке данных!");
+    }else if(errorType == 'p'){
+        errorText.append("некорректный формат пакета!");
+    }
+    emit sendErrorMessage(errorText);
+    return errorText;
+}
+
+QString PlatformMovingController::getErrorMessageModbus(unsigned char errorType)
+{
+    QString errorText("Ошибка передачи команды по протоколу Modbus: ");
+    if(errorType == 'c'){
+        errorText.append("неверная контрольная сумма!");
+    }else if(errorType == 't'){
+        errorText.append("превышено время ожидания ответа!");
     }else if(errorType == 'd'){
         errorText.append("некорректное значение в блоке данных!");
     }else if(errorType == 'p'){
@@ -516,6 +536,18 @@ void PlatformMovingController::DC_motor_CCW()
     packetToSend.comand = 'g';
     packetToSend.m_intVal = 1;
     m_currentMovingState = DC_MOTOR_CONTROL;
+    emit needToDisableControls(true);
+    emit writeCommandToComPort(packetToSend);
+    //    qDebug()<<"errorDATA";
+}
+
+void PlatformMovingController::readEncoderValue()
+{
+    PacketData packetToSend;
+    preparePacket(packetToSend);
+    packetToSend.comand = 'q';
+    packetToSend.m_intVal = 0;
+    m_currentMovingState = READ_ENCODER_VALUE;
     emit needToDisableControls(true);
     emit writeCommandToComPort(packetToSend);
     //    qDebug()<<"errorDATA";

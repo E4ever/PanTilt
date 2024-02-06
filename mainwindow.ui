@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>773</width>
-    <height>791</height>
+    <height>806</height>
    </rect>
   </property>
   <property name="sizePolicy">
@@ -19,13 +19,13 @@
   <property name="minimumSize">
    <size>
     <width>773</width>
-    <height>791</height>
+    <height>806</height>
    </size>
   </property>
   <property name="maximumSize">
    <size>
-    <width>773</width>
-    <height>791</height>
+    <width>777</width>
+    <height>806</height>
    </size>
   </property>
   <property name="font">
@@ -1015,13 +1015,13 @@
           <property name="minimumSize">
            <size>
             <width>367</width>
-            <height>35</height>
+            <height>50</height>
            </size>
           </property>
           <property name="maximumSize">
            <size>
             <width>367</width>
-            <height>35</height>
+            <height>50</height>
            </size>
           </property>
           <property name="font">
@@ -1510,6 +1510,54 @@ EEPROM</string>
             </property>
             <property name="text">
              <string>→</string>
+            </property>
+           </widget>
+          </item>
+         </layout>
+        </item>
+        <item>
+         <layout class="QHBoxLayout" name="horizontalLayout_16">
+          <item>
+           <widget class="QPushButton" name="pushButtonEncoder">
+            <property name="minimumSize">
+             <size>
+              <width>118</width>
+              <height>70</height>
+             </size>
+            </property>
+            <property name="maximumSize">
+             <size>
+              <width>118</width>
+              <height>70</height>
+             </size>
+            </property>
+            <property name="text">
+             <string>Считать значение
+энкодера</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QLabel" name="labelEncoder">
+            <property name="minimumSize">
+             <size>
+              <width>0</width>
+              <height>70</height>
+             </size>
+            </property>
+            <property name="maximumSize">
+             <size>
+              <width>16777215</width>
+              <height>70</height>
+             </size>
+            </property>
+            <property name="font">
+             <font>
+              <pointsize>14</pointsize>
+             </font>
+            </property>
+            <property name="text">
+             <string>TextLabel</string>
             </property>
            </widget>
           </item>

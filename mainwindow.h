@@ -4,6 +4,7 @@
 #include <QMainWindow>
 //#include "Include/CommonTypes.h"
 #include <QSettings>
+#include <QTimer>
 #include <ExtraDevices/ComPortManager.h>
 #include <Executers/PlatformMovingController.h>
 
@@ -181,6 +182,14 @@ private slots:
 
     void on_pushButtonDCMotorCW_clicked();
 
+    void on_pushButtonEncoder_clicked();
+
+    void readEncoderValue(QString text, unsigned long enc_value);
+
+    void readEncoderValue_timer();
+
+    void protocolErrorMessage(QString text);
+
 signals:
 
     /**
@@ -201,6 +210,7 @@ private:
     bool m_areUpdatesNeeded;    //!< Is it needed to update spectrums in widget
     QString m_title;            //!< Window Title
     QSettings *m_settings;      //!< Settings
+    QTimer timer;
 
     ComPortManager *m_comPortManager;       //!< Object for COM-port device control
 

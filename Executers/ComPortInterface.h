@@ -57,6 +57,8 @@ signals:
 
     void readDeviceID_signal(QString text, unsigned long id);
 
+    void readEncoderValue_signal(QString text, unsigned long enc_value);
+
     /**
      * @brief changeTaskProgress    Signal to set value on progress bar
      * @param progressPercent
