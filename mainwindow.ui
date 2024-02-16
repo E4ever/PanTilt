@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>773</width>
-    <height>806</height>
+    <height>876</height>
    </rect>
   </property>
   <property name="sizePolicy">
@@ -19,13 +19,13 @@
   <property name="minimumSize">
    <size>
     <width>773</width>
-    <height>806</height>
+    <height>876</height>
    </size>
   </property>
   <property name="maximumSize">
    <size>
     <width>777</width>
-    <height>806</height>
+    <height>876</height>
    </size>
   </property>
   <property name="font">
@@ -1079,6 +1079,19 @@
           </item>
          </layout>
         </item>
+        <item>
+         <spacer name="verticalSpacer">
+          <property name="orientation">
+           <enum>Qt::Vertical</enum>
+          </property>
+          <property name="sizeHint" stdset="0">
+           <size>
+            <width>20</width>
+            <height>40</height>
+           </size>
+          </property>
+         </spacer>
+        </item>
        </layout>
       </item>
       <item>
@@ -1426,6 +1439,18 @@ EEPROM</string>
         </item>
         <item>
          <widget class="QLabel" name="label_3">
+          <property name="minimumSize">
+           <size>
+            <width>365</width>
+            <height>20</height>
+           </size>
+          </property>
+          <property name="maximumSize">
+           <size>
+            <width>365</width>
+            <height>20</height>
+           </size>
+          </property>
           <property name="font">
            <font>
             <pointsize>11</pointsize>
@@ -1443,13 +1468,13 @@ EEPROM</string>
             <property name="minimumSize">
              <size>
               <width>118</width>
-              <height>70</height>
+              <height>45</height>
              </size>
             </property>
             <property name="maximumSize">
              <size>
               <width>118</width>
-              <height>70</height>
+              <height>45</height>
              </size>
             </property>
             <property name="font">
@@ -1468,13 +1493,13 @@ EEPROM</string>
             <property name="minimumSize">
              <size>
               <width>117</width>
-              <height>70</height>
+              <height>45</height>
              </size>
             </property>
             <property name="maximumSize">
              <size>
               <width>117</width>
-              <height>70</height>
+              <height>45</height>
              </size>
             </property>
             <property name="font">
@@ -1493,13 +1518,13 @@ EEPROM</string>
             <property name="minimumSize">
              <size>
               <width>118</width>
-              <height>70</height>
+              <height>45</height>
              </size>
             </property>
             <property name="maximumSize">
              <size>
               <width>118</width>
-              <height>70</height>
+              <height>45</height>
              </size>
             </property>
             <property name="font">
@@ -1522,13 +1547,13 @@ EEPROM</string>
             <property name="minimumSize">
              <size>
               <width>118</width>
-              <height>70</height>
+              <height>45</height>
              </size>
             </property>
             <property name="maximumSize">
              <size>
               <width>118</width>
-              <height>70</height>
+              <height>45</height>
              </size>
             </property>
             <property name="text">
@@ -1542,13 +1567,13 @@ EEPROM</string>
             <property name="minimumSize">
              <size>
               <width>0</width>
-              <height>70</height>
+              <height>45</height>
              </size>
             </property>
             <property name="maximumSize">
              <size>
               <width>16777215</width>
-              <height>70</height>
+              <height>45</height>
              </size>
             </property>
             <property name="font">
@@ -1557,7 +1582,7 @@ EEPROM</string>
              </font>
             </property>
             <property name="text">
-             <string>TextLabel</string>
+             <string> -</string>
             </property>
            </widget>
           </item>
@@ -1565,6 +1590,320 @@ EEPROM</string>
         </item>
         <item>
          <widget class="Line" name="line">
+          <property name="frameShadow">
+           <enum>QFrame::Raised</enum>
+          </property>
+          <property name="orientation">
+           <enum>Qt::Horizontal</enum>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QLabel" name="label_4">
+          <property name="minimumSize">
+           <size>
+            <width>365</width>
+            <height>20</height>
+           </size>
+          </property>
+          <property name="maximumSize">
+           <size>
+            <width>365</width>
+            <height>20</height>
+           </size>
+          </property>
+          <property name="font">
+           <font>
+            <pointsize>11</pointsize>
+           </font>
+          </property>
+          <property name="text">
+           <string>Метеодатчик №1 (внутри корпуса):</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <layout class="QHBoxLayout" name="horizontalLayout_20">
+          <item>
+           <widget class="QPushButton" name="pushButtonTemp1">
+            <property name="minimumSize">
+             <size>
+              <width>118</width>
+              <height>0</height>
+             </size>
+            </property>
+            <property name="maximumSize">
+             <size>
+              <width>118</width>
+              <height>16777215</height>
+             </size>
+            </property>
+            <property name="text">
+             <string>Температура</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QLabel" name="labelTemp1">
+            <property name="text">
+             <string> -</string>
+            </property>
+           </widget>
+          </item>
+         </layout>
+        </item>
+        <item>
+         <layout class="QHBoxLayout" name="horizontalLayout_19">
+          <item>
+           <widget class="QPushButton" name="pushButtonPress1">
+            <property name="minimumSize">
+             <size>
+              <width>118</width>
+              <height>0</height>
+             </size>
+            </property>
+            <property name="maximumSize">
+             <size>
+              <width>118</width>
+              <height>16777215</height>
+             </size>
+            </property>
+            <property name="text">
+             <string>Давление</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QLabel" name="labelPress1">
+            <property name="text">
+             <string> -</string>
+            </property>
+           </widget>
+          </item>
+         </layout>
+        </item>
+        <item>
+         <layout class="QHBoxLayout" name="horizontalLayout_17">
+          <item>
+           <widget class="QPushButton" name="pushButtonHum1">
+            <property name="minimumSize">
+             <size>
+              <width>118</width>
+              <height>0</height>
+             </size>
+            </property>
+            <property name="maximumSize">
+             <size>
+              <width>118</width>
+              <height>16777215</height>
+             </size>
+            </property>
+            <property name="text">
+             <string>Влажность</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QLabel" name="labelHum1">
+            <property name="text">
+             <string> -</string>
+            </property>
+           </widget>
+          </item>
+         </layout>
+        </item>
+        <item>
+         <widget class="QLabel" name="label_5">
+          <property name="minimumSize">
+           <size>
+            <width>365</width>
+            <height>20</height>
+           </size>
+          </property>
+          <property name="maximumSize">
+           <size>
+            <width>365</width>
+            <height>20</height>
+           </size>
+          </property>
+          <property name="font">
+           <font>
+            <pointsize>11</pointsize>
+           </font>
+          </property>
+          <property name="text">
+           <string>Метеодатчик №2 (снаружи (на улице)):</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <layout class="QHBoxLayout" name="horizontalLayout_23">
+          <item>
+           <widget class="QPushButton" name="pushButtonTemp2">
+            <property name="minimumSize">
+             <size>
+              <width>118</width>
+              <height>0</height>
+             </size>
+            </property>
+            <property name="maximumSize">
+             <size>
+              <width>118</width>
+              <height>16777215</height>
+             </size>
+            </property>
+            <property name="text">
+             <string>Температура</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QLabel" name="labelTemp2">
+            <property name="text">
+             <string> -</string>
+            </property>
+           </widget>
+          </item>
+         </layout>
+        </item>
+        <item>
+         <layout class="QHBoxLayout" name="horizontalLayout_22">
+          <item>
+           <widget class="QPushButton" name="pushButtonPress2">
+            <property name="minimumSize">
+             <size>
+              <width>118</width>
+              <height>0</height>
+             </size>
+            </property>
+            <property name="maximumSize">
+             <size>
+              <width>118</width>
+              <height>16777215</height>
+             </size>
+            </property>
+            <property name="text">
+             <string>Давление</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QLabel" name="labelPress2">
+            <property name="text">
+             <string> -</string>
+            </property>
+           </widget>
+          </item>
+         </layout>
+        </item>
+        <item>
+         <layout class="QHBoxLayout" name="horizontalLayout_21">
+          <item>
+           <widget class="QPushButton" name="pushButtonHum2">
+            <property name="minimumSize">
+             <size>
+              <width>118</width>
+              <height>0</height>
+             </size>
+            </property>
+            <property name="maximumSize">
+             <size>
+              <width>118</width>
+              <height>16777215</height>
+             </size>
+            </property>
+            <property name="text">
+             <string>Влажность</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QLabel" name="labelHum2">
+            <property name="text">
+             <string> -</string>
+            </property>
+           </widget>
+          </item>
+         </layout>
+        </item>
+        <item>
+         <widget class="Line" name="line_7">
+          <property name="frameShadow">
+           <enum>QFrame::Raised</enum>
+          </property>
+          <property name="orientation">
+           <enum>Qt::Horizontal</enum>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QLabel" name="label_12">
+          <property name="minimumSize">
+           <size>
+            <width>365</width>
+            <height>20</height>
+           </size>
+          </property>
+          <property name="maximumSize">
+           <size>
+            <width>365</width>
+            <height>20</height>
+           </size>
+          </property>
+          <property name="font">
+           <font>
+            <pointsize>11</pointsize>
+           </font>
+          </property>
+          <property name="text">
+           <string>Управление затвором МСР:</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <layout class="QHBoxLayout" name="horizontalLayout_24">
+          <item>
+           <widget class="QPushButton" name="pushButtonShutOpen">
+            <property name="minimumSize">
+             <size>
+              <width>180</width>
+              <height>0</height>
+             </size>
+            </property>
+            <property name="maximumSize">
+             <size>
+              <width>180</width>
+              <height>16777215</height>
+             </size>
+            </property>
+            <property name="text">
+             <string>Открыть</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QPushButton" name="pushButtonShutClose">
+            <property name="minimumSize">
+             <size>
+              <width>179</width>
+              <height>0</height>
+             </size>
+            </property>
+            <property name="maximumSize">
+             <size>
+              <width>179</width>
+              <height>16777215</height>
+             </size>
+            </property>
+            <property name="text">
+             <string>Закрыть</string>
+            </property>
+           </widget>
+          </item>
+         </layout>
+        </item>
+        <item>
+         <widget class="Line" name="line_8">
           <property name="frameShadow">
            <enum>QFrame::Plain</enum>
           </property>
@@ -1575,6 +1914,18 @@ EEPROM</string>
         </item>
         <item>
          <widget class="QLabel" name="labelDeviceID">
+          <property name="minimumSize">
+           <size>
+            <width>365</width>
+            <height>20</height>
+           </size>
+          </property>
+          <property name="maximumSize">
+           <size>
+            <width>365</width>
+            <height>20</height>
+           </size>
+          </property>
           <property name="font">
            <font>
             <pointsize>10</pointsize>
@@ -1584,19 +1935,6 @@ EEPROM</string>
            <string>Идентификатор устройства:</string>
           </property>
          </widget>
-        </item>
-        <item>
-         <spacer name="verticalSpacer">
-          <property name="orientation">
-           <enum>Qt::Vertical</enum>
-          </property>
-          <property name="sizeHint" stdset="0">
-           <size>
-            <width>20</width>
-            <height>40</height>
-           </size>
-          </property>
-         </spacer>
         </item>
        </layout>
       </item>

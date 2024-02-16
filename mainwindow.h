@@ -190,6 +190,28 @@ private slots:
 
     void protocolErrorMessage(QString text);
 
+    void on_pushButtonTemp1_clicked();
+
+    void on_pushButtonTemp2_clicked();
+
+    void on_pushButtonPress1_clicked();
+
+    void on_pushButtonPress2_clicked();
+
+    void on_pushButtonHum1_clicked();
+
+    void on_pushButtonHum2_clicked();
+
+    void on_pushButtonShutOpen_clicked();
+
+    void on_pushButtonShutClose_clicked();
+
+    void readTemp_slot(float temp);
+
+    void readPress_slot(float press);
+
+    void readHum_slot(float hum);
+
 signals:
 
     /**

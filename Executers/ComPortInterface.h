@@ -59,6 +59,12 @@ signals:
 
     void readEncoderValue_signal(QString text, unsigned long enc_value);
 
+    void readTemp(float temp);
+
+    void readPress(float press);
+
+    void readHum(float hum);
+
     /**
      * @brief changeTaskProgress    Signal to set value on progress bar
      * @param progressPercent

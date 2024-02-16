@@ -287,6 +287,12 @@ void PlatformMovingController::parseComPortData(PacketData comAnswer)
             emit readDeviceID_signal("Идентификатор устройства: ", comAnswer.m_intVal);
         } else if(comAnswer.comand == 'q'){
             emit readEncoderValue_signal("Значение энкодера: ", comAnswer.m_intVal);
+        } else if(comAnswer.comand == 't'){
+            emit readTemp(comAnswer.m_floatVal);
+        } else if(comAnswer.comand == 'p'){
+            emit readPress(comAnswer.m_floatVal);
+        } else if(comAnswer.comand == 'h'){
+            emit readHum(comAnswer.m_floatVal);
         } else {
             emit sendOKMessage("Ошибок передачи команд через COM-порт нет.");
         }
@@ -548,6 +554,102 @@ void PlatformMovingController::readEncoderValue()
     packetToSend.comand = 'q';
     packetToSend.m_intVal = 0;
     m_currentMovingState = READ_ENCODER_VALUE;
+    emit needToDisableControls(true);
+    emit writeCommandToComPort(packetToSend);
+    //    qDebug()<<"errorDATA";
+}
+
+void PlatformMovingController::readTemp1()
+{
+    PacketData packetToSend;
+    preparePacket(packetToSend);
+    packetToSend.comand = 't';
+    packetToSend.m_intVal = 0;
+    m_currentMovingState = READ_TEMP;
+    emit needToDisableControls(true);
+    emit writeCommandToComPort(packetToSend);
+    //    qDebug()<<"errorDATA";
+}
+
+void PlatformMovingController::readTemp2()
+{
+    PacketData packetToSend;
+    preparePacket(packetToSend);
+    packetToSend.comand = 't';
+    packetToSend.m_intVal = 1;
+    m_currentMovingState = READ_TEMP;
+    emit needToDisableControls(true);
+    emit writeCommandToComPort(packetToSend);
+    //    qDebug()<<"errorDATA";
+}
+
+void PlatformMovingController::readPress1()
+{
+    PacketData packetToSend;
+    preparePacket(packetToSend);
+    packetToSend.comand = 'p';
+    packetToSend.m_intVal = 0;
+    m_currentMovingState = READ_PRESS;
+    emit needToDisableControls(true);
+    emit writeCommandToComPort(packetToSend);
+    //    qDebug()<<"errorDATA";
+}
+
+void PlatformMovingController::readPress2()
+{
+    PacketData packetToSend;
+    preparePacket(packetToSend);
+    packetToSend.comand = 'p';
+    packetToSend.m_intVal = 1;
+    m_currentMovingState = READ_PRESS;
+    emit needToDisableControls(true);
+    emit writeCommandToComPort(packetToSend);
+    //    qDebug()<<"errorDATA";
+}
+
+void PlatformMovingController::readHum1()
+{
+    PacketData packetToSend;
+    preparePacket(packetToSend);
+    packetToSend.comand = 'h';
+    packetToSend.m_intVal = 0;
+    m_currentMovingState = READ_HUM;
+    emit needToDisableControls(true);
+    emit writeCommandToComPort(packetToSend);
+    //    qDebug()<<"errorDATA";
+}
+
+void PlatformMovingController::readHum2()
+{
+    PacketData packetToSend;
+    preparePacket(packetToSend);
+    packetToSend.comand = 'h';
+    packetToSend.m_intVal = 1;
+    m_currentMovingState = READ_HUM;
+    emit needToDisableControls(true);
+    emit writeCommandToComPort(packetToSend);
+    //    qDebug()<<"errorDATA";
+}
+
+void PlatformMovingController::shutterOpen()
+{
+    PacketData packetToSend;
+    preparePacket(packetToSend);
+    packetToSend.comand = 's';
+    packetToSend.m_intVal = 1;
+    m_currentMovingState = SHUT_CONTROL;
+    emit needToDisableControls(true);
+    emit writeCommandToComPort(packetToSend);
+    //    qDebug()<<"errorDATA";
+}
+
+void PlatformMovingController::shutterClose()
+{
+    PacketData packetToSend;
+    preparePacket(packetToSend);
+    packetToSend.comand = 's';
+    packetToSend.m_intVal = 0;
+    m_currentMovingState = SHUT_CONTROL;
     emit needToDisableControls(true);
     emit writeCommandToComPort(packetToSend);
     //    qDebug()<<"errorDATA";

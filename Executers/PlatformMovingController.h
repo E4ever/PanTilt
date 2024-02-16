@@ -122,6 +122,22 @@ public:
 
     void readEncoderValue();
 
+    void readTemp1();
+
+    void readTemp2();
+
+    void readPress1();
+
+    void readPress2();
+
+    void readHum1();
+
+    void readHum2();
+
+    void shutterOpen();
+
+    void shutterClose();
+
 signals:
     /**
      * @brief needToDisableControls Signal that it is needed (not needed) to set controls disabled
@@ -157,7 +173,8 @@ private:
         MOVING_UP, STOP_TILT, SETTING_PAN_SPEED, SETTING_TILT_SPEED,
         SETTING_NUMBER_OF_ITR_PAN, SETTING_NUMBER_OF_ITR_TILT, MB_ERROR,
         SAVE_TO_EEPROM, RESET_PARAM, RESET_ALL_PARAM, READ_SAVE_STATUS,
-        READ_DEVICE_ID, DC_MOTOR_CONTROL, READ_ENCODER_VALUE
+        READ_DEVICE_ID, DC_MOTOR_CONTROL, READ_ENCODER_VALUE,
+        READ_TEMP, READ_PRESS, READ_HUM, SHUT_CONTROL
     };
     MovementParameters m_currentMovingState;    //!< Current task for controller
     int m_zenSpeed;     //!< The speed on zenith angle

@@ -80,6 +80,10 @@ void MainWindow::initObjects()
 
     connect(m_movingController, SIGNAL(sendTextMessage(QString)), SLOT(protocolErrorMessage(QString)));
 
+    connect(m_movingController, SIGNAL(readTemp(float)), SLOT(readTemp_slot(float)));
+    connect(m_movingController, SIGNAL(readPress(float)), SLOT(readPress_slot(float)));
+    connect(m_movingController, SIGNAL(readHum(float)), SLOT(readHum_slot(float)));
+
     m_movingController->readDeviceID();
 
     //initExperimentMaker();
@@ -495,4 +499,77 @@ void MainWindow::readEncoderValue_timer()
 void MainWindow::protocolErrorMessage(QString text){
     ui->labelCMDState->setStyleSheet("color: red");
     ui->labelCMDState->setText(text);
+}
+
+void MainWindow::on_pushButtonTemp1_clicked()
+{
+    if(m_movingController != nullptr)
+        m_movingController->readTemp1();
+}
+
+
+void MainWindow::on_pushButtonTemp2_clicked()
+{
+    if(m_movingController != nullptr)
+        m_movingController->readTemp2();
+}
+
+
+void MainWindow::on_pushButtonPress1_clicked()
+{
+    if(m_movingController != nullptr)
+        m_movingController->readPress1();
+}
+
+
+void MainWindow::on_pushButtonPress2_clicked()
+{
+    if(m_movingController != nullptr)
+        m_movingController->readPress2();
+}
+
+
+void MainWindow::on_pushButtonHum1_clicked()
+{
+    if(m_movingController != nullptr)
+        m_movingController->readHum1();
+}
+
+
+void MainWindow::on_pushButtonHum2_clicked()
+{
+    if(m_movingController != nullptr)
+        m_movingController->readHum2();
+}
+
+
+void MainWindow::on_pushButtonShutOpen_clicked()
+{
+    if(m_movingController != nullptr)
+        m_movingController->shutterOpen();
+}
+
+
+void MainWindow::on_pushButtonShutClose_clicked()
+{
+    if(m_movingController != nullptr)
+        m_movingController->shutterClose();
+}
+
+void MainWindow::readTemp_slot(float temp)
+{
+    ui->labelTemp1->setText(QString::number(temp));
+    ui->labelTemp2->setText(QString::number(temp));
+}
+
+void MainWindow::readPress_slot(float press)
+{
+    ui->labelPress1->setText(QString::number(press));
+    ui->labelPress2->setText(QString::number(press));
+}
+
+void MainWindow::readHum_slot(float hum)
+{
+    ui->labelHum1->setText(QString::number(hum));
+    ui->labelHum2->setText(QString::number(hum));
 }
